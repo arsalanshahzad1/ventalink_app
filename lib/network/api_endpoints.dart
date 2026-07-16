@@ -23,6 +23,7 @@ class ApiEndpoints {
   static String toggleProductFavourite(String productId) => "products/$productId/favourite";
 
   static String orderLookup = "public/orders/lookup";
+  static String publicOrders = "public/orders";
 }
 
 class GlobalEndpoints {

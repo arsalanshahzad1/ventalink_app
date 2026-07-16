@@ -124,7 +124,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primary : Colors.transparent,
+                gradient: isSelected ? AppColors.primaryGradient : null,
+                color: isSelected ? null : Colors.transparent,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

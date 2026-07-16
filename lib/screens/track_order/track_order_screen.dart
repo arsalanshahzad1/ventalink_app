@@ -5,7 +5,9 @@ import 'package:ventalink_mobile/utils/app_colors.dart';
 import 'package:ventalink_mobile/utils/formatters.dart';
 
 class TrackOrderScreen extends StatefulWidget {
-  const TrackOrderScreen({super.key});
+  final String? initialQuery;
+
+  const TrackOrderScreen({super.key, this.initialQuery});
 
   @override
   State<TrackOrderScreen> createState() => _TrackOrderScreenState();
@@ -13,7 +15,15 @@ class TrackOrderScreen extends StatefulWidget {
 
 class _TrackOrderScreenState extends State<TrackOrderScreen> {
   final trackOrderController = Get.put(TrackOrderController());
-  final queryController = TextEditingController();
+  late final queryController = TextEditingController(text: widget.initialQuery ?? "");
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialQuery != null && widget.initialQuery!.trim().isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => trackOrderController.search(widget.initialQuery!));
+    }
+  }
 
   Widget _statusBadge(String status) {
     final normalized = status.toLowerCase();

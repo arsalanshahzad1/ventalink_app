@@ -14,6 +14,36 @@ class StoreOpenStatus {
   );
 }
 
+class StoreWalletSettings {
+  bool acceptsWalletPayments;
+  bool acceptsHybridPayments;
+
+  StoreWalletSettings({required this.acceptsWalletPayments, required this.acceptsHybridPayments});
+
+  factory StoreWalletSettings.fromJson(Map<String, dynamic> json) => StoreWalletSettings(
+    acceptsWalletPayments: json["acceptsWalletPayments"] ?? false,
+    acceptsHybridPayments: json["acceptsHybridPayments"] ?? false,
+  );
+}
+
+class StoreCampaign {
+  String id;
+  String name;
+  String type;
+  int valueBps;
+  int valueMinor;
+
+  StoreCampaign({required this.id, required this.name, required this.type, required this.valueBps, required this.valueMinor});
+
+  factory StoreCampaign.fromJson(Map<String, dynamic> json) => StoreCampaign(
+    id: json["id"] ?? "",
+    name: json["name"] ?? "",
+    type: json["type"] ?? "",
+    valueBps: json["valueBps"] ?? 0,
+    valueMinor: json["valueMinor"] ?? 0,
+  );
+}
+
 class PublicStore {
   String name;
   String slug;
@@ -24,6 +54,8 @@ class PublicStore {
   String? city;
   int productCount;
   StoreOpenStatus? openStatus;
+  StoreWalletSettings? walletSettings;
+  List<StoreCampaign> campaigns;
 
   PublicStore({
     required this.name,
@@ -35,6 +67,8 @@ class PublicStore {
     this.city,
     this.productCount = 0,
     this.openStatus,
+    this.walletSettings,
+    this.campaigns = const [],
   });
 
   factory PublicStore.fromJson(Map<String, dynamic> json) => PublicStore(
@@ -47,6 +81,8 @@ class PublicStore {
     city: json["city"],
     productCount: json["productCount"] ?? 0,
     openStatus: json["openStatus"] == null ? null : StoreOpenStatus.fromJson(json["openStatus"]),
+    walletSettings: json["walletSettings"] == null ? null : StoreWalletSettings.fromJson(json["walletSettings"]),
+    campaigns: (json["campaigns"] as List? ?? []).map((item) => StoreCampaign.fromJson(item)).toList(),
   );
 }
 
@@ -58,6 +94,7 @@ class PublicProduct {
   String currency;
   String? imageUrl;
   bool isFavorite;
+  bool walletEligible;
 
   PublicProduct({
     required this.id,
@@ -67,6 +104,7 @@ class PublicProduct {
     required this.currency,
     this.imageUrl,
     this.isFavorite = false,
+    this.walletEligible = false,
   });
 
   factory PublicProduct.fromJson(Map<String, dynamic> json) => PublicProduct(
@@ -77,6 +115,7 @@ class PublicProduct {
     currency: json["currency"] ?? "MXN",
     imageUrl: json["imageUrl"],
     isFavorite: json["isFavorite"] ?? false,
+    walletEligible: json["walletEligible"] ?? false,
   );
 }
 
@@ -91,6 +130,7 @@ class MarketplaceProduct extends PublicProduct {
     required super.currency,
     super.imageUrl,
     super.isFavorite,
+    super.walletEligible,
     required this.store,
   });
 
@@ -104,6 +144,7 @@ class MarketplaceProduct extends PublicProduct {
       currency: product.currency,
       imageUrl: product.imageUrl,
       isFavorite: product.isFavorite,
+      walletEligible: product.walletEligible,
       store: PublicStore.fromJson(json["store"] ?? {}),
     );
   }

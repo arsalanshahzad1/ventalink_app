@@ -7,6 +7,7 @@ import 'package:ventalink_mobile/screens/track_order/track_order_screen.dart';
 import 'package:ventalink_mobile/utils/app_colors.dart';
 import 'package:ventalink_mobile/utils/formatters.dart';
 import 'package:ventalink_mobile/utils/routing_service.dart';
+import 'package:ventalink_mobile/widgets/gradient_button.dart';
 
 class DigitalReceiptsScreen extends StatelessWidget {
   const DigitalReceiptsScreen({super.key});
@@ -107,16 +108,12 @@ class DigitalReceiptsScreen extends StatelessWidget {
                       children: [
                         Text(formatMoney(order.totalMinor, order.currency), style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
                         isPaid
-                            ? ElevatedButton.icon(
+                            ? GradientButton.icon(
+                                icon: Icons.receipt_long,
+                                label: "Open receipt",
                                 onPressed: () => RoutingService.push(ReceiptDetailScreen(orderId: order.id)),
-                                icon: const Icon(Icons.receipt_long, size: 16),
-                                label: const Text("Open receipt"),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  foregroundColor: Colors.white,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                                borderRadius: 10,
                               )
                             : OutlinedButton(
                                 onPressed: null,

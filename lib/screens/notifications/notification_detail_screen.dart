@@ -8,6 +8,7 @@ import 'package:ventalink_mobile/utils/app_colors.dart';
 import 'package:ventalink_mobile/utils/formatters.dart';
 import 'package:ventalink_mobile/utils/prompts.dart';
 import 'package:ventalink_mobile/utils/routing_service.dart';
+import 'package:ventalink_mobile/widgets/gradient_button.dart';
 
 class NotificationDetailScreen extends StatefulWidget {
   final String notificationId;
@@ -119,11 +120,10 @@ class _NotificationDetailScreenState extends State<NotificationDetailScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: ElevatedButton.icon(
+                      child: GradientButton.icon(
+                        icon: Icons.arrow_outward,
+                        label: "Open related page",
                         onPressed: () => _openRelatedPage(notification.to),
-                        icon: const Icon(Icons.arrow_outward, size: 18),
-                        label: const Text("Open related page"),
-                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
                       ),
                     ),
                   ],
