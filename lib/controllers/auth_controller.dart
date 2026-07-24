@@ -7,9 +7,11 @@ import 'package:ventalink_mobile/network/api_endpoints.dart';
 import 'package:ventalink_mobile/network/api_service.dart';
 import 'package:ventalink_mobile/screens/auth/login_screen.dart';
 import 'package:ventalink_mobile/screens/bottom_nav_screen.dart';
+import 'package:ventalink_mobile/screens/store/store_entry_screen.dart';
 import 'package:ventalink_mobile/utils/common_utils.dart';
 import 'package:ventalink_mobile/utils/prompts.dart';
 import 'package:ventalink_mobile/utils/routing_service.dart';
+import 'package:ventalink_mobile/utils/user_role.dart';
 
 class AuthController extends GetxController {
   final loginEmailController = TextEditingController();
@@ -48,7 +50,11 @@ class AuthController extends GetxController {
           await commonUtils.saveSession(userModel);
           loginEmailController.clear();
           loginPasswordController.clear();
-          RoutingService.pushAndRemoveUntil(const BottomNavScreen());
+          if (isStoreRole(userModel.user?.role)) {
+            RoutingService.pushAndRemoveUntil(const StoreEntryScreen());
+          } else {
+            RoutingService.pushAndRemoveUntil(const BottomNavScreen());
+          }
         },
         error: (message, statusCode) {
           Prompts.showSnackBar(message);

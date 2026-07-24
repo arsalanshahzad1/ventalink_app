@@ -24,9 +24,41 @@ class ApiEndpoints {
 
   static String orderLookup = "public/orders/lookup";
   static String publicOrders = "public/orders";
+
+  // Store profile
+  static String myStore = "stores/me";
+  static String createStore = "stores";
+  static String slugAvailability = "stores/slug-availability";
+
+  // Merchant products
+  static String products = "products";
+  static String productDetail(String id) => "products/$id";
+
+  // Seller-side orders (distinct from myPurchaseHistory, which is the buyer view)
+  static String sellerOrders = "orders";
+  static String sellerOrderDetail(String id) => "orders/$id";
+
+  // Dashboard
+  static String dashboardMetrics = "dashboard/metrics";
+
+  // Merchant wallet / campaigns / push notifications
+  static String merchantWallet = "merchant/wallet";
+  static String merchantWalletLedger = "merchant/wallet/ledger";
+  static String merchantBulkPurchases = "merchant/wallet/bulk-purchases";
+  static String merchantCampaigns = "merchant/campaigns";
+  static String merchantCampaignDetail(String id) => "merchant/campaigns/$id";
+  static String merchantCampaignActivity = "merchant/campaigns/activity";
+  static String pushCampaigns = "merchant/push-campaigns";
+  static String pushCampaignEstimate = "merchant/push-campaigns/estimate";
+
+  // Loyalty
+  static String loyaltyProgram = "loyalty/program";
+  static String loyaltyCoupons = "loyalty/coupons";
+  static String redeemLoyaltyCoupon(String code) => "loyalty/coupons/$code/redeem";
 }
 
 class GlobalEndpoints {
   static const String appOrigin = "https://api.ventalink.mx";
   static const String appBackend = "$appOrigin/api/v1/";
+  static const String publicAppUrl = "https://ventalink.app";
 }

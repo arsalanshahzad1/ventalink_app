@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ventalink_mobile/screens/auth/login_screen.dart';
 import 'package:ventalink_mobile/screens/bottom_nav_screen.dart';
+import 'package:ventalink_mobile/screens/store/store_entry_screen.dart';
 import 'package:ventalink_mobile/utils/app_colors.dart';
 import 'package:ventalink_mobile/utils/common_utils.dart';
 import 'package:ventalink_mobile/utils/routing_service.dart';
+import 'package:ventalink_mobile/utils/user_role.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> goNext() async {
     final session = await CommonUtils().getSession();
     if (session != null) {
-      RoutingService.pushAndRemoveUntil(const BottomNavScreen());
+      if (isStoreRole(session.user?.role)) {
+        RoutingService.pushAndRemoveUntil(const StoreEntryScreen());
+      } else {
+        RoutingService.pushAndRemoveUntil(const BottomNavScreen());
+      }
     } else {
       RoutingService.pushAndRemoveUntil(const LoginScreen());
     }

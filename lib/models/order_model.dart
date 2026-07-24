@@ -32,6 +32,7 @@ class OrderSummary {
   DateTime createdAt;
   String? customerName;
   String? customerEmail;
+  String? customerPhone;
   List<OrderLineItem> items;
   String? storeName;
 
@@ -46,6 +47,7 @@ class OrderSummary {
     required this.createdAt,
     this.customerName,
     this.customerEmail,
+    this.customerPhone,
     required this.items,
     this.storeName,
   });
@@ -69,6 +71,7 @@ class OrderSummary {
       createdAt: DateTime.tryParse(json["createdAt"] ?? "") ?? DateTime.now(),
       customerName: customer["name"],
       customerEmail: customer["email"],
+      customerPhone: customer["phone"],
       items: (json["items"] as List? ?? []).map((item) => OrderLineItem.fromJson(item)).toList(),
       storeName: store["name"],
     );
